@@ -48,7 +48,7 @@ class _ClientSummaryState extends State<ClientSummary> {
 
   void comreceived() async {
     http.Response response = await http.get(
-        "http://zksc.herokuapp.com/payments/safetynet@safe123/summary/user/${widget.email}");
+        "http://89.40.11.242:8000/payments/safetynet@safe123/summary/user/${widget.email}");
     if (response.statusCode == 200) {
       print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ${response.body}");
       setState(() {
