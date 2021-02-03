@@ -23,7 +23,7 @@ class _SaleCallState extends State<SaleCall> {
   var q = new NumberFormat("###,##0", "en_US");
   void getLiveRates() async {
     http.Response response =
-        await http.get("https://zksc.herokuapp.com/liverates");
+        await http.get("http://89.40.11.242:8000/liverates");
     if (response.statusCode == 200) {
       if (this.mounted) {
         setState(() {
@@ -35,7 +35,7 @@ class _SaleCallState extends State<SaleCall> {
 
   void getSales() async {
     http.Response response = await http
-        .get("https://zksc.herokuapp.com/trades/salecalllist/${user["email"]}");
+        .get("http://89.40.11.242:8000/trades/salecalllist/${user["email"]}");
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (this.mounted) {

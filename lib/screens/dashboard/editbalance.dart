@@ -98,7 +98,7 @@ class _EditBalanceState extends State<EditBalance> {
                                 ];
                                 String json = jsonEncode(patch);
                                 http.Response response = await http.patch(
-                                    "https://zksc.herokuapp.com/members/${widget.id}",
+                                    "http://89.40.11.242:8000/members/${widget.id}",
                                     headers: {
                                       "content-type": "application/json"
                                     },

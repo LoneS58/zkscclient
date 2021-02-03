@@ -20,7 +20,7 @@ class _SoldState extends State<Sold> {
   var q = new NumberFormat("###,##0", "en_US");
   void getSold() async {
     http.Response response = await http
-        .get("https://zksc.herokuapp.com/trades/user/S/${user["email"]}");
+        .get("http://89.40.11.242:8000/trades/user/S/${user["email"]}");
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       if (this.mounted) {

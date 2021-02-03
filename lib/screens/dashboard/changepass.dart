@@ -234,7 +234,7 @@ class _ChangePassState extends State<ChangePass> {
                                     ];
                                     String json = jsonEncode(edit);
                                     http.Response response = await http.patch(
-                                        "https://zksc.herokuapp.com/members/${widget.credentials["_id"]}",
+                                        "http://89.40.11.242:8000/members/${widget.credentials["_id"]}",
                                         headers: {
                                           "content-type": "application/json"
                                         },

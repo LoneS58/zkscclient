@@ -82,7 +82,7 @@ class _SellTradeState extends State<SellTrade> {
 
   void getbal() async {
     http.Response response =
-        await http.get("https://zksc.herokuapp.com/members/${widget.id}");
+        await http.get("http://89.40.11.242:8000/members/${widget.id}");
     if (response.statusCode == 200) {
       Map data = jsonDecode(response.body);
       if (this.mounted) {
@@ -558,7 +558,7 @@ class _SellTradeState extends State<SellTrade> {
                                                       jsonEncode(bal);
                                                   http.Response response =
                                                       await http.patch(
-                                                          "https://zksc.herokuapp.com/members/${widget.id}",
+                                                          "http://89.40.11.242:8000/members/${widget.id}",
                                                           headers: {
                                                             "content-type":
                                                                 "application/json"
@@ -898,7 +898,7 @@ class _SellTradeState extends State<SellTrade> {
                                                       jsonEncode(bal);
                                                   http.Response response =
                                                       await http.patch(
-                                                          "https://zksc.herokuapp.com/members/${widget.id}",
+                                                          "http://89.40.11.242:8000/members/${widget.id}",
                                                           headers: {
                                                             "content-type":
                                                                 "application/json"
@@ -931,7 +931,7 @@ class _SellTradeState extends State<SellTrade> {
                                                         jsonEncode(newdata);
                                                     http.Response response =
                                                         await http.post(
-                                                            "https://zksc.herokuapp.com/trades",
+                                                            "http://89.40.11.242:8000/trades",
                                                             headers: {
                                                               "content-type":
                                                                   "application/json"

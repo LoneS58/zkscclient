@@ -15,8 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   bool approve;
   var version;
   void checkVersion() async {
-    http.Response response =
-        await http.get("https://zksc.herokuapp.com/version");
+    http.Response response = await http.get("http://89.40.11.242:8000/version");
     setState(() {
       version = jsonDecode(response.body);
     });

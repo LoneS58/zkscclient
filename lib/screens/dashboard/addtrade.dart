@@ -50,7 +50,7 @@ class _AddTradeState extends State<AddTrade> {
 
   void checkbal() async {
     http.Response response =
-        await http.get("https://zksc.herokuapp.com/members/${widget.id}");
+        await http.get("http://89.40.11.242:8000/members/${widget.id}");
     if (response.statusCode == 200) {
       Map data = jsonDecode(response.body);
       if (this.mounted) {
@@ -489,7 +489,7 @@ class _AddTradeState extends State<AddTrade> {
                                   processing = true;
                                 });
                                 http.Response response = await http
-                                    .get("https://zksc.herokuapp.com/scrips");
+                                    .get("http://89.40.11.242:8000/scrips");
                                 if (response.statusCode == 200) {
                                   print("stage A");
                                   setState(() {
@@ -511,7 +511,7 @@ class _AddTradeState extends State<AddTrade> {
                                       print(patch);
                                       String json1 = jsonEncode(patch);
                                       http.Response response = await http.patch(
-                                          "https://zksc.herokuapp.com/members/${widget.id}",
+                                          "http://89.40.11.242:8000/members/${widget.id}",
                                           headers: {
                                             "content-type": "application/json"
                                           },
@@ -543,7 +543,7 @@ class _AddTradeState extends State<AddTrade> {
                                         };
                                         String json = jsonEncode(data);
                                         http.Response response = await http.post(
-                                            "https://zksc.herokuapp.com/trades",
+                                            "http://89.40.11.242:8000/trades",
                                             headers: {
                                               "content-type": "application/json"
                                             },
@@ -570,7 +570,7 @@ class _AddTradeState extends State<AddTrade> {
                                       print(patch);
                                       String json1 = jsonEncode(patch);
                                       http.Response response = await http.patch(
-                                          "https://zksc.herokuapp.com/members/${widget.id}",
+                                          "http://89.40.11.242:8000/members/${widget.id}",
                                           headers: {
                                             "content-type": "application/json"
                                           },
@@ -602,7 +602,7 @@ class _AddTradeState extends State<AddTrade> {
                                         };
                                         String json = jsonEncode(data);
                                         http.Response response = await http.post(
-                                            "https://zksc.herokuapp.com/trades",
+                                            "http://89.40.11.242:8000/trades",
                                             headers: {
                                               "content-type": "application/json"
                                             },

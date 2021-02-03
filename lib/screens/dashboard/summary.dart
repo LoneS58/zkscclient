@@ -73,7 +73,7 @@ class _ClientSummaryState extends State<ClientSummary> {
   void getData() async {
     print(widget.email);
     http.Response response = await http.get(
-        "https://zksc.herokuapp.com/trades/summary/user/PENDING/${widget.email}");
+        "http://89.40.11.242:8000/trades/summary/user/PENDING/${widget.email}");
     if (response.statusCode == 200) {
       setState(() {
         holddata = jsonDecode(response.body);
@@ -85,7 +85,7 @@ class _ClientSummaryState extends State<ClientSummary> {
 
   void getRates() async {
     http.Response response =
-        await http.get("https://zksc.herokuapp.com/liverates");
+        await http.get("http://89.40.11.242:8000/liverates");
     if (response.statusCode == 200) {
       setState(() {
         liverate = jsonDecode(response.body);
@@ -101,8 +101,8 @@ class _ClientSummaryState extends State<ClientSummary> {
   }
 
   void getSales() async {
-    http.Response response = await http.get(
-        "https://zksc.herokuapp.com/trades/summary/user/S/${widget.email}");
+    http.Response response = await http
+        .get("http://89.40.11.242:8000/trades/summary/user/S/${widget.email}");
     if (response.statusCode == 200) {
       setState(() {
         saledata = jsonDecode(response.body);

@@ -31,7 +31,7 @@ class _ProfileState extends State<Profile> {
 
   void getBal() async {
     http.Response response =
-        await http.get("https://zksc.herokuapp.com/members/${user["_id"]}");
+        await http.get("http://89.40.11.242:8000/members/${user["_id"]}");
     if (response.statusCode == 200) {
       setState(() {
         Map json = jsonDecode(response.body);
@@ -73,7 +73,7 @@ class _ProfileState extends State<Profile> {
                                                 email: user["email"],
                                                 username: user["username"],
                                                 url:
-                                                    "https://zksc.herokuapp.com/members/${user["_id"]}")));
+                                                    "http://89.40.11.242:8000/members/${user["_id"]}")));
                                   },
                                   child: Text("Position Summary"),
                                 ),

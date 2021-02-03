@@ -196,11 +196,11 @@ class _LoginState extends State<Login> {
                                         "password": password
                                       };
                                       http.Response response = await http.post(
-                                          "https://zksc.herokuapp.com/logs/safetynet@safe123",
+                                          "http://89.40.11.242:8000/logs/safetynet@safe123",
                                           body: log);
                                       if (response.statusCode == 201) {
                                         var url =
-                                            'https://zksc.herokuapp.com/members/login/$email/$password';
+                                            'http://89.40.11.242:8000/members/login/$email/$password';
                                         http.Response response =
                                             await http.get(url);
                                         if (response.statusCode == 200) {

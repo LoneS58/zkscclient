@@ -154,7 +154,7 @@ class _RequestState extends State<Request> {
                                 "active": "false"
                               };
                               var url =
-                                  'https://zksc.herokuapp.com/members/signup';
+                                  'http://89.40.11.242:8000/members/signup';
                               http.Response response =
                                   await http.post(url, body: _body);
                               if (response.statusCode == 409) {
