@@ -39,7 +39,6 @@ class _ClientSummaryState extends State<ClientSummary> {
   @override
   void initState() {
     getData();
-    getRates();
     getSales();
     fetchbal();
     comreceived();
@@ -81,6 +80,7 @@ class _ClientSummaryState extends State<ClientSummary> {
       });
       print(holddata);
     }
+    getRates();
   }
 
   void getRates() async {
@@ -97,6 +97,8 @@ class _ClientSummaryState extends State<ClientSummary> {
           totalmval += mval;
         });
       }
+      print(" A+ ${scrips.length}");
+      print(" A+ $scrips");
     }
   }
 
@@ -453,8 +455,7 @@ class _ClientSummaryState extends State<ClientSummary> {
                         ),
                         Text(
                           () {
-                            if (totalmval == 0 ||
-                                saledata["totalpls"] == null) {
+                            if (totalmval == 0 || saledata == null) {
                               return "Fetching...";
                             } else {
                               return " ${f.format(saledata["totalpls"]).toString()}";
@@ -575,8 +576,7 @@ class _ClientSummaryState extends State<ClientSummary> {
                         ),
                         Text(
                           () {
-                            if (commamt == null ||
-                                saledata["totalcommissionamount"] == null) {
+                            if (commamt == null || saledata == null) {
                               return fetching;
                             } else {
                               if (this.mounted) {
