@@ -95,7 +95,12 @@ class _TermsState extends State<Terms> {
                 SizedBox(
                   height: 10,
                 ),
-                Text('* Commission rates on net profit is only 10%.'),
+                Text('* Commission rates on net profit is only 8%.'),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                    '* 1% of total investment amount will be deposited as advance commission.'),
                 SizedBox(
                   height: 10,
                 ),
@@ -120,6 +125,11 @@ class _TermsState extends State<Terms> {
                 ),
                 Text(
                     '* We deny our clients to sell in loss for fundamental or technical reasons which client has to discuss when required.'),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                    '* If a member does not sell as per sale call or does not update app in 48 hours, we will mark sale as at average sale rate of members during last 48 hours.'),
                 SizedBox(
                   height: 10,
                 ),

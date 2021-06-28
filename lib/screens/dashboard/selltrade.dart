@@ -19,6 +19,8 @@ class _SellTradeState extends State<SellTrade> {
   String err = "";
   DateTime snow = DateTime.now();
   bool decision = false;
+  bool newdecision = false;
+  bool ratedes = false;
   final _formKey = GlobalKey<FormState>();
   bool allmethod;
   var username;
@@ -66,9 +68,9 @@ class _SellTradeState extends State<SellTrade> {
       buyrate = widget.trade["buyrate"];
       buyamount = widget.trade["buyamount"];
       soldpending = widget.trade["soldpending"];
-      saledate = widget.trade["saledate"];
       salerate = widget.trade["salerate"];
       saleamount = widget.trade["saleamount"];
+      saledate = widget.trade["saledate"];
       commrate = widget.trade["commrate"];
       cgtrate = widget.trade["cgtrate"];
       pls = widget.trade["pls"];
@@ -337,74 +339,220 @@ class _SellTradeState extends State<SellTrade> {
                                 )
                               ],
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(10, 10, 30, 10),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                validator: (value) =>
-                                    value != null || value != ""
-                                        ? null
-                                        : "Please enter the saleamount",
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "Sale Amount",
-                                    labelStyle: TextStyle(fontSize: 17)),
-                                onChanged: (value) {
-                                  if (value != null || value != "") {
-                                    setState(() {
-                                      soldpending = "S";
-                                    });
-                                  } else {
-                                    setState(() {
-                                      soldpending = "PENDING";
-                                    });
-                                  }
-                                  setState(() {
-                                    saleamount = int.parse(value);
-                                    salerate = int.parse(value) / qty;
-                                    pls = int.parse(value) - buyamount;
-                                    commamount = pls / 100 * commrate;
-                                  });
-                                },
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: Text(
-                                    "Sale rate:",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                            () {
+                              if (newdecision == false) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text("-----------------   "),
+                                        Text(
+                                          "Choose one",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Text("   -----------------"),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 20, 0),
-                                  child: Text(
-                                    () {
-                                      if (salerate == null ||
-                                          salerate == 0 ||
-                                          salerate == "0" ||
-                                          soldpending == "PENDING") {
-                                        return " PKR 0";
-                                      } else {
-                                        return "PKR ${f.format(salerate)}";
-                                      }
-                                    }(),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: RaisedButton(
+                                              color: Colors.red[300],
+                                              onPressed: () {
+                                                setState(() {
+                                                  newdecision = true;
+                                                  ratedes = true;
+                                                });
+                                              },
+                                              child: Text("Sale rate"),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 10, 10),
+                                            child: RaisedButton(
+                                              color: Colors.red[300],
+                                              onPressed: () {
+                                                setState(() {
+                                                  newdecision = true;
+                                                });
+                                              },
+                                              child: Text("Sale amount"),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                );
+                              } else {
+                                if (ratedes == true) {
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 10, 30, 10),
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) =>
+                                              value != null || value != ""
+                                                  ? null
+                                                  : "Please enter the salerate",
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: "Sale Rate",
+                                              labelStyle:
+                                                  TextStyle(fontSize: 17)),
+                                          onChanged: (value) {
+                                            if (value != null || value != "") {
+                                              setState(() {
+                                                soldpending = "S";
+                                              });
+                                            } else {
+                                              setState(() {
+                                                soldpending = "PENDING";
+                                              });
+                                            }
+                                            setState(() {
+                                              salerate = double.parse(value);
+                                              saleamount =
+                                                  double.parse(value) * qty;
+                                              pls = saleamount - buyamount;
+                                              commamount = pls / 100 * commrate;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Text(
+                                              "Sale amount:",
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 20, 0),
+                                            child: Text(
+                                              () {
+                                                if (salerate == null ||
+                                                    salerate == 0 ||
+                                                    salerate == "0" ||
+                                                    soldpending == "PENDING") {
+                                                  return " PKR 0";
+                                                } else {
+                                                  return "PKR ${f.format(saleamount)}";
+                                                }
+                                              }(),
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                } else {
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 10, 30, 10),
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) => value != null ||
+                                                  value != ""
+                                              ? null
+                                              : "Please enter the saleamount",
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: "Sale Amount",
+                                              labelStyle:
+                                                  TextStyle(fontSize: 17)),
+                                          onChanged: (value) {
+                                            if (value != null || value != "") {
+                                              setState(() {
+                                                soldpending = "S";
+                                              });
+                                            } else {
+                                              setState(() {
+                                                soldpending = "PENDING";
+                                              });
+                                            }
+                                            setState(() {
+                                              saleamount = int.parse(value);
+                                              salerate = int.parse(value) / qty;
+                                              pls =
+                                                  int.parse(value) - buyamount;
+                                              commamount = pls / 100 * commrate;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Text(
+                                              "Sale rate:",
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 20, 0),
+                                            child: Text(
+                                              () {
+                                                if (salerate == null ||
+                                                    salerate == 0 ||
+                                                    salerate == "0" ||
+                                                    soldpending == "PENDING") {
+                                                  return " PKR 0";
+                                                } else {
+                                                  return "PKR ${f.format(salerate)}";
+                                                }
+                                              }(),
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                }
+                              }
+                            }(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -697,74 +845,223 @@ class _SellTradeState extends State<SellTrade> {
                                 },
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(10, 10, 30, 10),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                validator: (value) =>
-                                    value != null || value != ""
-                                        ? null
-                                        : "Please enter the saleamount",
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: "Sale Amount",
-                                    labelStyle: TextStyle(fontSize: 17)),
-                                onChanged: (value) {
-                                  if (value != null || newquantity != null) {
-                                    setState(() {
-                                      soldpending = "S";
-                                    });
-                                  } else {
-                                    setState(() {
-                                      soldpending = "PENDING";
-                                    });
-                                  }
-                                  setState(() {
-                                    saleamount = int.parse(value);
-                                    salerate = int.parse(value) / newquantity;
-                                    pls = int.parse(value) - newbuyamount;
-                                    commamount = pls / 100 * commrate;
-                                  });
-                                },
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: Text(
-                                    "Sale rate:",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                            //inserting new rate at this spot
+                            () {
+                              if (newdecision == false) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text("-----------------   "),
+                                        Text(
+                                          "Choose one",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Text("   -----------------"),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 20, 0),
-                                  child: Text(
-                                    () {
-                                      if (salerate == null ||
-                                          salerate == 0 ||
-                                          salerate == "0" ||
-                                          soldpending == "PENDING") {
-                                        return " PKR 0";
-                                      } else {
-                                        return "PKR ${f.format(salerate)}";
-                                      }
-                                    }(),
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: RaisedButton(
+                                              color: Colors.red[300],
+                                              onPressed: () {
+                                                setState(() {
+                                                  newdecision = true;
+                                                  ratedes = true;
+                                                });
+                                              },
+                                              child: Text("Sale rate"),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 10, 10),
+                                            child: RaisedButton(
+                                              color: Colors.red[300],
+                                              onPressed: () {
+                                                setState(() {
+                                                  newdecision = true;
+                                                });
+                                              },
+                                              child: Text("Sale amount"),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                );
+                              } else {
+                                if (ratedes == true) {
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 10, 30, 10),
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) =>
+                                              value != null || value != ""
+                                                  ? null
+                                                  : "Please enter the salerate",
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: "Sale Rate",
+                                              labelStyle:
+                                                  TextStyle(fontSize: 17)),
+                                          onChanged: (value) {
+                                            if (value != null || value != "") {
+                                              setState(() {
+                                                soldpending = "S";
+                                              });
+                                            } else {
+                                              setState(() {
+                                                soldpending = "PENDING";
+                                              });
+                                            }
+                                            setState(() {
+                                              salerate = double.parse(value);
+                                              saleamount = double.parse(value) *
+                                                  newquantity;
+                                              pls = saleamount - newbuyamount;
+                                              commamount = pls / 100 * commrate;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Text(
+                                              "Sale amount:",
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 20, 0),
+                                            child: Text(
+                                              () {
+                                                if (salerate == null ||
+                                                    salerate == 0 ||
+                                                    salerate == "0" ||
+                                                    soldpending == "PENDING") {
+                                                  return " PKR 0";
+                                                } else {
+                                                  return "PKR ${f.format(saleamount)}";
+                                                }
+                                              }(),
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                } else {
+                                  return Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 10, 30, 10),
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) => value != null ||
+                                                  value != ""
+                                              ? null
+                                              : "Please enter the saleamount",
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: "Sale Amount",
+                                              labelStyle:
+                                                  TextStyle(fontSize: 17)),
+                                          onChanged: (value) {
+                                            if (value != null || value != "") {
+                                              setState(() {
+                                                soldpending = "S";
+                                              });
+                                            } else {
+                                              setState(() {
+                                                soldpending = "PENDING";
+                                              });
+                                            }
+                                            setState(() {
+                                              saleamount = int.parse(value);
+                                              salerate = int.parse(value) /
+                                                  newquantity;
+                                              pls = int.parse(value) -
+                                                  newbuyamount;
+                                              commamount = pls / 100 * commrate;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 10, 0),
+                                            child: Text(
+                                              "Sale rate:",
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 20, 0),
+                                            child: Text(
+                                              () {
+                                                if (salerate == null ||
+                                                    salerate == 0 ||
+                                                    salerate == "0" ||
+                                                    soldpending == "PENDING") {
+                                                  return " PKR 0";
+                                                } else {
+                                                  return "PKR ${f.format(salerate)}";
+                                                }
+                                              }(),
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                }
+                              }
+                            }(),
+                            //to this spot
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [

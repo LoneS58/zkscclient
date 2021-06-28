@@ -121,8 +121,9 @@ class _RequestState extends State<Request> {
                     keyboardType: TextInputType.number,
                     decoration:
                         textInputDecoration.copyWith(hintText: 'Balance'),
-                    validator: (val) =>
-                        val.isEmpty ? " Please enter an amount." : null,
+                    validator: (val) => val.isEmpty || val == "" || val == " "
+                        ? " Please enter an amount."
+                        : null,
                     onChanged: (val) {
                       setState(() => balance = val);
                     },
@@ -139,6 +140,8 @@ class _RequestState extends State<Request> {
                         : () async {
                             if (_formKey.currentState.validate()) {
                               setState(() {
+                                email = email.trim();
+                                password = password.trim();
                                 processing = true;
                                 absorb = true;
                               });
